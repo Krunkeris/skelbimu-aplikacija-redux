@@ -30,6 +30,7 @@ app.use("/api/users", usersRoutes);
 app.use("/api/comments", commentsRoutes);
 app.use("/api/protected", protectedRoutes);
 
+//test
 app.listen(PORT, () => {
   connectToMongoDB();
   console.log(`Server is running on port:${PORT}`);
