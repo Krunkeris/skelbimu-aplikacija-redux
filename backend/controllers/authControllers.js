@@ -43,7 +43,7 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { email, password } = req.body;
 
     const user = await User.findOne({ email });
 
@@ -72,12 +72,17 @@ const login = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-  res.clearCookie("token", {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-  });
+  try {
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+    });
 
-  res.json({ message: "Logout successful" });
+    res.json({ message: "Logout successful" });
+  } catch (error) {
+    console.log(`Error in logout controller`, error.message);
+    res.status(500).json({ error: "Internal server error" });
+  }
 };
 
 module.exports = {

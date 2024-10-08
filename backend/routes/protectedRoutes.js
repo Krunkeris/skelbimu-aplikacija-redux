@@ -7,6 +7,7 @@ const {
 const {
   protectedRouteToUserHome,
   protectedRouteToAdminHome,
+  protectedRouteToHome,
 } = require("../controllers/protectedRouteController");
 
 const router = express.Router();
@@ -24,5 +25,7 @@ router.get(
   authenticateUserRole("admin"),
   protectedRouteToAdminHome
 );
+
+router.get("/home", authenticateJwt, protectedRouteToHome);
 
 module.exports = router;
