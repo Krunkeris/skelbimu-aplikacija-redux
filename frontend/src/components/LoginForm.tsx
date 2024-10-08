@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { LoginInputDataType } from "../types/types";
 import { useLoginMutation } from "../api/authApi";
+import { LogoutComponent } from "./LogoutComponent";
+import { useNavigate } from "react-router-dom";
+import { useGetUserInfo } from "../hooks/useGetUserInfo";
 
 export const LoginForm = () => {
   const [loginInputData, setLoginInputData] = useState<LoginInputDataType>({
@@ -17,11 +20,17 @@ export const LoginForm = () => {
     });
   };
 
+  const navigate = useNavigate();
+
+  const { getUserInfo } = useGetUserInfo();
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const response = await login(loginInputData).unwrap();
+      navigate("/");
       localStorage.setItem("user", JSON.stringify(response));
+      getUserInfo();
       console.log(response);
     } catch (error) {
       console.error(error);
@@ -74,6 +83,7 @@ export const LoginForm = () => {
           {(error as any).data.message || "Registration failed"}
         </p>
       )}
+      <LogoutComponent />
     </form>
   );
 };

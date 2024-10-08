@@ -15,3 +15,15 @@ export type UserInfoType = {
   email: string;
   role: "admin" | "user" | "";
 };
+
+export type ProtectedRouteToHomeProps = {
+  children: React.ReactNode;
+};
+
+export type ProtectedRouteToUserHomeProps = {
+  children: React.ReactNode;
+};
+
+export type ProtectedRouteToAdminHomeProps = {
+  children: React.ReactNode;
+};

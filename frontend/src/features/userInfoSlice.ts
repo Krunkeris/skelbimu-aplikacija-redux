@@ -18,6 +18,7 @@ const userInfoSlice = createSlice({
         const parsedUser: UserInfoType = JSON.parse(user);
         return { ...state, ...parsedUser };
       }
+      console.log(`from slice ${user}`);
       return state;
     },
     clearUserInfo: () => initialState,

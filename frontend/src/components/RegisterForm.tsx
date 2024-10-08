@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { RegisterInputDataType } from "../types/types";
 import { useRegisterMutation } from "../api/authApi";
+import { useGetUserInfo } from "../hooks/useGetUserInfo";
+import { useNavigate } from "react-router-dom";
 
 export const RegisterForm = () => {
   const [registerInputData, setRegisterInputData] =
@@ -19,11 +21,17 @@ export const RegisterForm = () => {
     });
   };
 
+  const { getUserInfo } = useGetUserInfo();
+
+  const navigate = useNavigate();
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const response = await register(registerInputData).unwrap();
+      navigate("/");
       localStorage.setItem("user", JSON.stringify(response));
+      getUserInfo();
       console.log(response);
     } catch (error) {
       console.error(error);
