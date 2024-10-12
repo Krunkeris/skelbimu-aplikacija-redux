@@ -54,4 +54,38 @@ const authenticateUserRole = (requiredRole) => (req, res, next) => {
   next();
 };
 
-module.exports = { authenticateJwt, authenticateUserRole };
+const authenticateUserStatus = (req, res, next) => {
+  const token = req.cookies.token;
+  console.log(token);
+  if (!token) {
+    return res
+      .status(401)
+      .json({ message: "Token is missing. Unauthorized access" });
+  }
+
+  const decoded = verifyJwt(token);
+
+  console.log(decoded.status);
+  if (!decoded) {
+    return res
+      .status(401)
+      .json({ message: "Invalid token. Unauthorized access" });
+  }
+
+  const status = decoded.status;
+
+  if (status !== "accepted") {
+    return res
+      .status(403)
+      .json({ message: `Status is: ${status}, should be: "Accepted"` });
+  }
+
+  console.log(`Status is: ${status}`);
+  next();
+};
+
+module.exports = {
+  authenticateJwt,
+  authenticateUserRole,
+  authenticateUserStatus,
+};

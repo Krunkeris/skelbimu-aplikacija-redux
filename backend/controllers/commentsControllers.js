@@ -37,10 +37,6 @@ const createComment = async (req, res) => {
   try {
     const savedComment = await newComment.save();
 
-    await Post.findByIdAndUpdate(postsId, {
-      $push: { comments: savedComment._id },
-    });
-
     res.status(201).json(savedComment);
   } catch (error) {
     res.status(500).json({ message: "Error creating comment", error });
@@ -48,8 +44,11 @@ const createComment = async (req, res) => {
 };
 
 const updateComment = async (req, res) => {
-  const commentId = req.params.commentId;
+  const commentId = req.params.id;
   const { text } = req.body;
+
+  console.log("Comment ID received:", commentId);
+  console.log("New text received:", text);
 
   try {
     const updatedComment = await Comment.findByIdAndUpdate(
@@ -69,8 +68,8 @@ const updateComment = async (req, res) => {
 };
 
 const deleteComment = async (req, res) => {
-  const commentId = req.params.commentId;
-
+  const commentId = req.params.id;
+  console.log(commentId);
   try {
     const deletedComment = await Comment.findByIdAndDelete(commentId);
 
@@ -78,12 +77,7 @@ const deleteComment = async (req, res) => {
       return res.status(404).json({ message: "Comment not found" });
     }
 
-    await Post.updateMany(
-      { comments: commentId },
-      { $pull: { comments: commentId } }
-    );
-
-    res.status(200).json({ message: "Comment deleted successfully" }); // Respond with success message
+    res.status(200).json({ message: "Comment deleted successfully" });
   } catch (error) {
     res.status(500).json({ message: "Error deleting comment", error });
   }

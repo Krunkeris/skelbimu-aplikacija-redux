@@ -2,6 +2,7 @@ const express = require("express");
 const {
   authenticateJwt,
   authenticateUserRole,
+  authenticateUserStatus,
 } = require("../middleware/protectedRoutes.middleware");
 
 const {
@@ -16,6 +17,7 @@ router.get(
   "/userHome",
   authenticateJwt,
   authenticateUserRole("user"),
+  authenticateUserStatus,
   protectedRouteToUserHome
 );
 
@@ -23,6 +25,7 @@ router.get(
   "/adminHome",
   authenticateJwt,
   authenticateUserRole("admin"),
+  authenticateUserStatus,
   protectedRouteToAdminHome
 );
 

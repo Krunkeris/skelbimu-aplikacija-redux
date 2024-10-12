@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { LoginInputDataType } from "../types/types";
 import { useLoginMutation } from "../api/authApi";
-import { LogoutComponent } from "./LogoutComponent";
 import { useNavigate } from "react-router-dom";
 import { useGetUserInfo } from "../hooks/useGetUserInfo";
+import { Link } from "react-router-dom";
 
 export const LoginForm = () => {
   const [loginInputData, setLoginInputData] = useState<LoginInputDataType>({
@@ -80,10 +80,12 @@ export const LoginForm = () => {
       </button>
       {isError && (
         <p className="text-danger mt-2">
-          {(error as any).data.message || "Registration failed"}
+          {(error as any).data.message || "Logging in failed"}
         </p>
       )}
-      <LogoutComponent />
+      <div className="mt-3">
+        Dont have an account yet? <Link to="/register">Register here</Link>
+      </div>
     </form>
   );
 };

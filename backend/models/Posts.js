@@ -23,7 +23,7 @@ const PostSchema = new mongoose.Schema(
       required: true,
       min: 0,
     },
-    imgHttps: {
+    imageUrl: {
       type: String,
     },
     status: {
@@ -32,7 +32,6 @@ const PostSchema = new mongoose.Schema(
       default: "pending",
     },
     likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
-    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
   },
   { timestamps: true }
 );

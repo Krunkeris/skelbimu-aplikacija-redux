@@ -20,6 +20,11 @@ const UserSchema = new mongoose.Schema(
       enum: ["user", "admin"],
       default: "user",
     },
+    status: {
+      type: String,
+      enum: ["accepted", "blocked"],
+      default: "accepted",
+    },
   },
   { timestamps: true }
 );

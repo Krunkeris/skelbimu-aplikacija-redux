@@ -8,14 +8,13 @@ const {
 const {
   authenticateJwt,
   authenticateUserRole,
+  authenticateUserStatus,
 } = require("../middleware/protectedRoutes.middleware");
 
 const router = express.Router();
 
-//get all users
-router.get("/", authenticateJwt, authenticateUserRole("admin"), getAllUsers);
+router.get("/", authenticateJwt, authenticateUserStatus, getAllUsers);
 
-//block user
 router.post(
   "/:id",
   authenticateJwt,

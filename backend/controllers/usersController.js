@@ -18,10 +18,10 @@ const blockOrUnblockUser = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    if (user.status === "approved") {
+    if (user.status === "accepted") {
       user.status = "blocked";
     } else {
-      user.status = "approved";
+      user.status = "accepted";
     }
 
     await user.save();

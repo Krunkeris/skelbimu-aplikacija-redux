@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 
 const register = async (req, res) => {
   try {
-    const { username, email, password, role } = req.body;
+    const { username, email, password, role, status } = req.body;
     console.log("asdasd", req.body);
 
     const existingUser = await User.findOne({ email });
@@ -23,6 +23,7 @@ const register = async (req, res) => {
       email,
       password: hashedPassword,
       role,
+      status,
     });
 
     await newUser.save();
@@ -34,6 +35,7 @@ const register = async (req, res) => {
       username: newUser.username,
       email: newUser.email,
       role: newUser.role,
+      status: newUser.status,
     });
   } catch (error) {
     console.log(`Error in register controller`, error.message);
@@ -64,6 +66,7 @@ const login = async (req, res) => {
       username: user.username,
       email: user.email,
       role: user.role,
+      status: user.status,
     });
   } catch (error) {
     console.log(`Error in login controller`, error.message);

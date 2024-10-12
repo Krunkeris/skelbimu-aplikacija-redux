@@ -1,11 +1,10 @@
 import { useLogoutMutation } from "../api/authApi";
-import { AppDispatch, RootState } from "../store/store";
-import { useSelector, useDispatch } from "react-redux";
+import { AppDispatch } from "../store/store";
+import { useDispatch } from "react-redux";
 import { clearUserInfo } from "../features/userInfoSlice";
 import { useNavigate } from "react-router-dom";
 
-export const LogoutComponent = () => {
-  //redux
+export const LogoutComponent = ({ visibility = true }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const [logout, { isLoading, isError, error }] = useLogoutMutation();
@@ -25,19 +24,25 @@ export const LogoutComponent = () => {
   };
 
   return (
-    <div>
-      <button
-        className="btn btn-primary"
-        onClick={handleLogout}
-        disabled={isLoading}
-      >
-        {isLoading ? "Logging out..." : "Logout"}
-      </button>
-      {isError && (
-        <div className="text-danger mt-2">
-          Logout failed: {(error as any).data.message}
+    <>
+      {visibility === true ? (
+        <div>
+          <button
+            className="btn btn-dark w-100"
+            onClick={handleLogout}
+            disabled={isLoading}
+          >
+            {isLoading ? "Logging out..." : "Logout"}
+          </button>
+          {isError && (
+            <div className="text-danger mt-2">
+              Logout failed: {(error as any).data.message}
+            </div>
+          )}
         </div>
+      ) : (
+        <></>
       )}
-    </div>
+    </>
   );
 };

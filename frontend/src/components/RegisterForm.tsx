@@ -3,6 +3,7 @@ import { RegisterInputDataType } from "../types/types";
 import { useRegisterMutation } from "../api/authApi";
 import { useGetUserInfo } from "../hooks/useGetUserInfo";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const RegisterForm = () => {
   const [registerInputData, setRegisterInputData] =
@@ -98,6 +99,9 @@ export const RegisterForm = () => {
           {(error as any).data.message || "Registration failed"}
         </p>
       )}
+      <div className="mt-3">
+        Already have an account? <Link to="/login">Login here</Link>
+      </div>
     </form>
   );
 };

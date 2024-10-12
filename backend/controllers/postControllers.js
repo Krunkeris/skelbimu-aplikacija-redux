@@ -30,14 +30,14 @@ const getPostById = async (req, res) => {
 const createPost = async (req, res) => {
   console.log("Creating a new post...");
   try {
-    const { userId, name, category, description, price, imgHttps } = req.body;
+    const { userId, name, category, description, price, imageUrl } = req.body;
     const newPost = new Post({
       userId,
       name,
       category,
       description,
       price,
-      imgHttps,
+      imageUrl,
       authorId: req.user.id,
     });
 
@@ -53,11 +53,11 @@ const createPost = async (req, res) => {
 const updatePost = async (req, res) => {
   console.log(`Updating post with ID: ${req.params.id}`);
   try {
-    const { name, category, description, price, imgHttps, status } = req.body;
+    const { name, category, description, price, imageUrl, status } = req.body;
 
     const updatedPost = await Post.findByIdAndUpdate(
       req.params.id,
-      { name, category, description, price, imgHttps, status },
+      { name, category, description, price, imageUrl, status },
       { new: true }
     );
 

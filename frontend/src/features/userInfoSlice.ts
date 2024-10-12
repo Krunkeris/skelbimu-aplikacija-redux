@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { UserInfoType } from "../types/types";
 
 const initialState: UserInfoType = {
@@ -6,6 +6,7 @@ const initialState: UserInfoType = {
   username: "",
   email: "",
   role: "",
+  status: "accepted",
 };
 
 const userInfoSlice = createSlice({

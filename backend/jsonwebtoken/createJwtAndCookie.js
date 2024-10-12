@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 
-const createJwtAndCookie = (user, res, expiresIn = "1h") => {
+const createJwtAndCookie = (user, res, expiresIn = "10h") => {
   if (!process.env.JWT_SECRET) {
     throw new Error("JWT_SECRET is not defined in environment variables");
   }
@@ -9,6 +9,7 @@ const createJwtAndCookie = (user, res, expiresIn = "1h") => {
     id: user._id,
     username: user.username,
     role: user.role,
+    status: user.status,
   };
 
   const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn });
